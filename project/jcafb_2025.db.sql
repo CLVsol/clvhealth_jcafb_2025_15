@@ -1,14 +1,15 @@
 BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS "clv_partner_entity_contact_information_pattern" (
-"id" INTEGER,
-  "name" TEXT,
-  "street" TEXT,
-  "street_number" TEXT,
-  "street_number2" TEXT,
-  "street2" TEXT,
-  "notes" INTEGER,
-  "active" INTEGER
-, "ext_id"	INTEGER);
+	"id"	INTEGER,
+	"name"	TEXT,
+	"street"	TEXT,
+	"street_number"	TEXT,
+	"street_number2"	TEXT,
+	"street2"	TEXT,
+	"notes"	TEXT,
+	"active"	INTEGER,
+	"ext_id"	INTEGER
+);
 CREATE TABLE IF NOT EXISTS "clv_partner_entity_street_pattern" (
 "id" INTEGER,
   "street" TEXT,
@@ -37,8 +38,8 @@ CREATE TABLE IF NOT EXISTS "clv_patient" (
 	"country_state"	TEXT,
 	"country_id"	INTEGER,
 	"country"	TEXT,
-	"mobile"	INTEGER,
-	"email"	INTEGER,
+	"mobile"	TEXT,
+	"email"	TEXT,
 	"marker_ids"	TEXT,
 	"markers"	TEXT,
 	"ext_id"	INTEGER,
