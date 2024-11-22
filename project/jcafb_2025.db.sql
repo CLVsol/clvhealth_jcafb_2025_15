@@ -40,8 +40,19 @@ CREATE TABLE IF NOT EXISTS "clv_patient" (
 	"country"	TEXT,
 	"mobile"	TEXT,
 	"email"	TEXT,
+	"category_ids"	TEXT,
+	"categories"	TEXT,
 	"marker_ids"	TEXT,
 	"markers"	TEXT,
+	"ext_id"	INTEGER,
+	PRIMARY KEY("id")
+);
+CREATE TABLE IF NOT EXISTS "clv_patient_category" (
+	"id"	INTEGER NOT NULL UNIQUE,
+	"name"	TEXT,
+	"description"	TEXT,
+	"color"	INTEGER,
+	"active"	INTEGER,
 	"ext_id"	INTEGER,
 	PRIMARY KEY("id")
 );
@@ -51,6 +62,15 @@ CREATE TABLE IF NOT EXISTS "clv_patient_marker" (
 	"description"	TEXT,
 	"color"	INTEGER,
 	"active"	INTEGER,
+	PRIMARY KEY("id")
+);
+CREATE TABLE IF NOT EXISTS "clv_patient_tag" (
+	"id"	INTEGER NOT NULL UNIQUE,
+	"name"	TEXT,
+	"description"	TEXT,
+	"color"	INTEGER,
+	"active"	INTEGER,
+	"ext_id"	INTEGER,
 	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "clv_phase" (
@@ -74,11 +94,17 @@ CREATE TABLE IF NOT EXISTS "res_country" (
 	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "res_partner" (
-	"id"	INTEGER NOT NULL UNIQUE,
+	"id"	INTEGER,
 	"name"	TEXT,
 	"type"	TEXT,
-	"ext_id"	INTEGER,
-	PRIMARY KEY("id")
+	"street_name"	TEXT,
+	"street"	TEXT,
+	"street_number"	TEXT,
+	"street_number2"	TEXT,
+	"street2"	TEXT,
+	"district"	TEXT,
+	"active"	INTEGER,
+	"ext_id"	INTEGER
 );
 CREATE TABLE IF NOT EXISTS "res_users" (
 	"id"	INTEGER NOT NULL UNIQUE,
