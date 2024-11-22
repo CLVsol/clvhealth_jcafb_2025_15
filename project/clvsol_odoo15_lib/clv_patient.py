@@ -47,11 +47,6 @@ def get_sqlite(server_url, db_name, username, password,
         clv_patient.insert(clv_patient.columns.get_loc("marker_ids") + 1, 'markers', None)
         clv_patient.insert(clv_patient.columns.get_loc("tag_ids") + 1, 'tags', None)
 
-        # conn = sqlite3.connect('data/jcafb_2025.db')
-        # clv_patient_category = pd.read_sql_query('SELECT * FROM clv_patient_category', conn, index_col='name')
-        # clv_patient_marker = pd.read_sql_query('SELECT * FROM clv_patient_marker', conn, index_col='name')
-        # conn.close()
-
         for i, row in clv_patient.iterrows():
 
             if row['phase_id']:
