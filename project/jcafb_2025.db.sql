@@ -44,6 +44,8 @@ CREATE TABLE IF NOT EXISTS "clv_patient" (
 	"categories"	TEXT,
 	"marker_ids"	TEXT,
 	"markers"	TEXT,
+	"tag_ids"	TEXT,
+	"tags"	TEXT,
 	"ext_id"	INTEGER,
 	PRIMARY KEY("id")
 );
