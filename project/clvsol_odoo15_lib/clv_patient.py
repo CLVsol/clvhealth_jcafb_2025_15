@@ -23,7 +23,8 @@ def get_sqlite(server_url, db_name, username, password,
     clv_patient_fields = ['id', 'name', 'code', 'gender', 'birthday', 'phase_id',
                           'address_name', 'street', 'street_name', 'street_number', 'street2', 'street_number2',
                           'zip', 'city_id', 'state_id', 'country_id',
-                          'mobile', 'email', 'category_ids', 'marker_ids', 'tag_ids'
+                          'mobile', 'email', 'category_ids', 'marker_ids', 'tag_ids',
+                          'active'
                           ]
 
     common = client.ServerProxy('%s/xmlrpc/2/common' % server_url)
