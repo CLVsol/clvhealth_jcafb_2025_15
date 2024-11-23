@@ -7,16 +7,15 @@ CREATE TABLE IF NOT EXISTS "clv_partner_entity_contact_information_pattern" (
 	"street_number2"	TEXT,
 	"street2"	TEXT,
 	"notes"	TEXT,
-	"active"	INTEGER,
-	"ext_id"	INTEGER
+	"active"	INTEGER
 );
 CREATE TABLE IF NOT EXISTS "clv_partner_entity_street_pattern" (
-"id" INTEGER,
-  "street" TEXT,
-  "street2" TEXT,
-  "notes" TEXT,
-  "active" INTEGER
-, "ext_id"	INTEGER);
+	"id"	INTEGER,
+	"street"	TEXT,
+	"street2"	TEXT,
+	"notes"	TEXT,
+	"active"	INTEGER
+);
 CREATE TABLE IF NOT EXISTS "clv_patient" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"name"	TEXT,
@@ -46,7 +45,7 @@ CREATE TABLE IF NOT EXISTS "clv_patient" (
 	"markers"	TEXT,
 	"tag_ids"	TEXT,
 	"tags"	TEXT,
-	"ext_id"	INTEGER,
+	"active"	INTEGER,
 	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "clv_patient_category" (
@@ -55,7 +54,6 @@ CREATE TABLE IF NOT EXISTS "clv_patient_category" (
 	"description"	TEXT,
 	"color"	INTEGER,
 	"active"	INTEGER,
-	"ext_id"	INTEGER,
 	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "clv_patient_marker" (
@@ -72,27 +70,23 @@ CREATE TABLE IF NOT EXISTS "clv_patient_tag" (
 	"description"	TEXT,
 	"color"	INTEGER,
 	"active"	INTEGER,
-	"ext_id"	INTEGER,
 	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "clv_phase" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"name"	TEXT,
 	"description"	TEXT,
-	"ext_id"	INTEGER,
 	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "res_company" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"name"	TEXT,
-	"ext_id"	INTEGER,
 	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "res_country" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"name"	TEXT,
 	"code"	TEXT,
-	"ext_id"	INTEGER,
 	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "res_partner" (
@@ -105,8 +99,7 @@ CREATE TABLE IF NOT EXISTS "res_partner" (
 	"street_number2"	TEXT,
 	"street2"	TEXT,
 	"district"	TEXT,
-	"active"	INTEGER,
-	"ext_id"	INTEGER
+	"active"	INTEGER
 );
 CREATE TABLE IF NOT EXISTS "res_users" (
 	"id"	INTEGER NOT NULL UNIQUE,
@@ -121,7 +114,6 @@ CREATE TABLE IF NOT EXISTS "res_users" (
 	"password"	TEXT,
 	"active"	INTEGER,
 	"image_1920"	TEXT,
-	"ext_id"	INTEGER,
 	PRIMARY KEY("id")
 );
 CREATE UNIQUE INDEX "idx_clv_patient_code" ON "clv_patient" (
