@@ -9,5 +9,6 @@ from . import res_users
 from . import clv_phase
 from . import clv_partner_entity_street_pattern
 from . import clv_partner_entity_contact_information_pattern
+from . import clv_patient_category
 from . import clv_patient_tag
 from . import clv_patient
