@@ -101,7 +101,7 @@ def get_sqlite(server_url, db_name, username, password,
                     if categories is False:
                         categories = clv_patient_category.at[index, 'name']
                     else:
-                        categories = ';' + clv_patient_category.at[index, 'name']
+                        categories = categories + ';' + clv_patient_category.at[index, 'name']
                 clv_patient['category_ids'].values[i] = categories
             else:
                 clv_patient['category_ids'].values[i] = None
@@ -115,7 +115,7 @@ def get_sqlite(server_url, db_name, username, password,
                     if markers is False:
                         markers = clv_patient_marker.at[index, 'name']
                     else:
-                        markers = ';' + clv_patient_marker.at[index, 'name']
+                        markers = markers + ';' + clv_patient_marker.at[index, 'name']
                 clv_patient['markers'].values[i] = markers
             else:
                 clv_patient['marker_ids'].values[i] = None
@@ -129,7 +129,7 @@ def get_sqlite(server_url, db_name, username, password,
                     if tags is False:
                         tags = clv_patient_tag.at[index, 'name']
                     else:
-                        tags = ';' + clv_patient_tag.at[index, 'name']
+                        tags = tags + ';' + clv_patient_tag.at[index, 'name']
                 clv_patient['tags'].values[i] = tags
             else:
                 clv_patient['tag_ids'].values[i] = None
