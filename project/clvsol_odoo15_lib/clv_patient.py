@@ -45,6 +45,7 @@ def get_sqlite(server_url, db_name, username, password,
         clv_patient.insert(clv_patient.columns.get_loc("city_id") + 1, 'city', None)
         clv_patient.insert(clv_patient.columns.get_loc("state_id") + 1, 'country_state', None)
         clv_patient.insert(clv_patient.columns.get_loc("country_id") + 1, 'country', None)
+        clv_patient.insert(clv_patient.columns.get_loc("category_ids") + 1, 'categories', None)
         clv_patient.insert(clv_patient.columns.get_loc("marker_ids") + 1, 'markers', None)
         clv_patient.insert(clv_patient.columns.get_loc("tag_ids") + 1, 'tags', None)
 
@@ -102,7 +103,7 @@ def get_sqlite(server_url, db_name, username, password,
                         categories = clv_patient_category.at[index, 'name']
                     else:
                         categories = categories + ';' + clv_patient_category.at[index, 'name']
-                clv_patient['category_ids'].values[i] = categories
+                clv_patient['categories'].values[i] = categories
             else:
                 clv_patient['category_ids'].values[i] = None
 
