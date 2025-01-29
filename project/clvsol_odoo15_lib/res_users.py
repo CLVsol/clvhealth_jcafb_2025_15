@@ -6,12 +6,20 @@ import logging
 from xmlrpc import client
 import pandas as pd
 import sqlite3
+from time import time
+from datetime import timedelta
 
 logging.basicConfig(level=logging.DEBUG)
 _logger = logging.getLogger(__name__)
 
 
+def secondsToStr(t):
+    return str(timedelta(seconds=t))
+
+
 def get_sqlite(server_url, db_name, username, password, initialize=False):
+
+    start = time()
 
     _logger.info(u'%s %s %s %s', '-->', 'get_sqlite', server_url, db_name)
 
@@ -78,5 +86,7 @@ def get_sqlite(server_url, db_name, username, password, initialize=False):
             res_users.to_sql('res_users', conn, if_exists='append', index=False)
 
         conn.close()
+
+    _logger.info(u'%s %s %s %s', '-->', 'Execution time:', secondsToStr(time() - start), '\n')
 
     return res_users
