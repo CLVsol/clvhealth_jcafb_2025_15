@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS "clv_patient" (
 	"street_number"	TEXT,
 	"street2"	TEXT,
 	"street_number2"	TEXT,
+	"district"	TEXT,
 	"zip"	TEXT,
 	"city_id"	INTEGER,
 	"city"	TEXT,
@@ -76,6 +77,9 @@ CREATE TABLE IF NOT EXISTS "clv_phase" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"name"	TEXT,
 	"description"	TEXT,
+	"code"	TEXT DEFAULT NULL,
+	"notes"	TEXT DEFAULT NULL,
+	"active"	INTEGER,
 	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "res_company" (
@@ -99,6 +103,13 @@ CREATE TABLE IF NOT EXISTS "res_partner" (
 	"street_number2"	TEXT,
 	"street2"	TEXT,
 	"district"	TEXT,
+	"zip"	TEXT,
+	"city_id"	INTEGER,
+	"city"	TEXT,
+	"state_id"	INTEGER,
+	"country_state"	INTEGER,
+	"country_id"	INTEGER,
+	"country"	TEXT,
 	"active"	INTEGER
 );
 CREATE TABLE IF NOT EXISTS "res_users" (
