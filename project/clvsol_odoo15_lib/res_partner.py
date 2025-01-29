@@ -16,7 +16,9 @@ def get_sqlite(server_url, db_name, username, password, initialize=False):
     _logger.info(u'%s %s %s %s', '-->', 'get_sqlite', server_url, db_name)
 
     res_partner_fields = ['id', 'name', 'type',
-                          'street_name', 'street', 'street_number', 'street_number2', 'street2', 'district', 'active'
+                          'street_name', 'street', 'street_number', 'street_number2', 'street2', 'district',
+                          'zip', 'city_id', 'state_id', 'country_id',
+                          'active'
                           ]
 
     common = client.ServerProxy('%s/xmlrpc/2/common' % server_url)
@@ -33,6 +35,10 @@ def get_sqlite(server_url, db_name, username, password, initialize=False):
             {}
         )
         res_partner = pd.DataFrame(res_partner_objects)
+
+        res_partner.insert(res_partner.columns.get_loc("city_id") + 1, 'city', None)
+        res_partner.insert(res_partner.columns.get_loc("state_id") + 1, 'country_state', None)
+        res_partner.insert(res_partner.columns.get_loc("country_id") + 1, 'country', None)
 
         for i, row in res_partner.iterrows():
 
@@ -51,8 +57,26 @@ def get_sqlite(server_url, db_name, username, password, initialize=False):
             if row['street2'] is False:
                 res_partner['street2'].values[i] = None
 
-            # if row['district'] is False:
-            #     res_partner['district'].values[i] = None
+            if row['zip'] is False:
+                res_partner['zip'].values[i] = None
+
+            if row['city_id']:
+                res_partner['city_id'].values[i] = row['city_id'][0]
+                res_partner['city'].values[i] = row['city_id'][1]
+            else:
+                res_partner['city_id'].values[i] = None
+
+            if row['state_id']:
+                res_partner['state_id'].values[i] = row['state_id'][0]
+                res_partner['country_state'].values[i] = row['state_id'][1]
+            else:
+                res_partner['state_id'].values[i] = None
+
+            if row['country_id']:
+                res_partner['country_id'].values[i] = row['country_id'][0]
+                res_partner['country'].values[i] = row['country_id'][1]
+            else:
+                res_partner['country_id'].values[i] = None
 
         conn = sqlite3.connect('data/jcafb_2025.db')
 
@@ -68,14 +92,14 @@ def get_sqlite(server_url, db_name, username, password, initialize=False):
 
             res_partner.to_sql('res_partner', conn, if_exists='append', index=False)
 
-            sql = '''
-                UPDATE res_partner
-                SET district = NULL
-                WHERE district = '0';
-                '''
-            cur = conn.cursor()
-            cur.execute(sql)
-            conn.commit()
+        sql = '''
+            UPDATE res_partner
+            SET district = NULL
+            WHERE district = '0';
+            '''
+        cur = conn.cursor()
+        cur.execute(sql)
+        conn.commit()
 
         conn.close()
 
