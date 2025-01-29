@@ -59,23 +59,23 @@ def get_sqlite(server_url, db_name, username, password, initialize=False):
 
             clv_phase.to_sql('clv_phase', conn, if_exists='append', index=False)
 
-            sql = '''
-                UPDATE clv_phase
-                SET code = NULL
-                WHERE code = '0';
-                '''
-            cur = conn.cursor()
-            cur.execute(sql)
-            conn.commit()
+        sql = '''
+            UPDATE clv_phase
+            SET code = NULL
+            WHERE code = '0';
+            '''
+        cur = conn.cursor()
+        cur.execute(sql)
+        conn.commit()
 
-            sql = '''
-                UPDATE clv_phase
-                SET notes = NULL
-                WHERE notes = '0';
-                '''
-            cur = conn.cursor()
-            cur.execute(sql)
-            conn.commit()
+        sql = '''
+            UPDATE clv_phase
+            SET notes = NULL
+            WHERE notes = '0';
+            '''
+        cur = conn.cursor()
+        cur.execute(sql)
+        conn.commit()
 
         conn.close()
 
