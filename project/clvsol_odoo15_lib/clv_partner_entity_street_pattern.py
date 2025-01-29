@@ -51,15 +51,6 @@ def get_sqlite(server_url, db_name, username, password, initialize=False):
 
             clv_partner_entity_street_pattern.to_sql('clv_partner_entity_street_pattern', conn, if_exists='append', index=False)
 
-            # sql = '''
-            #     UPDATE clv_partner_entity_street_pattern
-            #     SET description = NULL
-            #     WHERE description = '0';
-            #     '''
-            # cur = conn.cursor()
-            # cur.execute(sql)
-            # conn.commit()
-
         conn.close()
 
     return clv_partner_entity_street_pattern
