@@ -21,7 +21,7 @@ def get_sqlite(server_url, db_name, username, password,
     _logger.info(u'%s %s %s %s', '-->', 'get_sqlite', server_url, db_name)
 
     clv_patient_fields = ['id', 'name', 'code', 'gender', 'birthday', 'phase_id',
-                          'address_name', 'street', 'street_name', 'street_number', 'street2', 'street_number2',
+                          'address_name', 'street', 'street_name', 'street_number', 'street2', 'street_number2', 'district',
                           'zip', 'city_id', 'state_id', 'country_id',
                           'mobile', 'email', 'category_ids', 'marker_ids', 'tag_ids',
                           'active'
@@ -69,6 +69,9 @@ def get_sqlite(server_url, db_name, username, password,
             if not row['street2']:
                 clv_patient['street2'].values[i] = None
 
+            if row['zip'] is False:
+                clv_patient['zip'].values[i] = None
+
             if row['city_id']:
                 clv_patient['city_id'].values[i] = row['city_id'][0]
                 clv_patient['city'].values[i] = row['city_id'][1]
@@ -86,12 +89,6 @@ def get_sqlite(server_url, db_name, username, password,
                 clv_patient['country'].values[i] = row['country_id'][1]
             else:
                 clv_patient['country_id'].values[i] = None
-
-            # if not row['mobile']:
-            #     clv_patient['mobile'].values[i] = None
-
-            # if not row['email']:
-            #     clv_patient['email'].values[i] = None
 
             if row['category_ids'] != []:
                 clv_patient['category_ids'].values[i] = str(row['category_ids'])
@@ -149,23 +146,32 @@ def get_sqlite(server_url, db_name, username, password,
 
             clv_patient.to_sql('clv_patient', conn, if_exists='append', index=False)
 
-            sql = '''
-                UPDATE clv_patient
-                SET mobile = NULL
-                WHERE mobile = '0';
-                '''
-            cur = conn.cursor()
-            cur.execute(sql)
-            conn.commit()
+        sql = '''
+            UPDATE clv_patient
+            SET district = NULL
+            WHERE district = '0';
+            '''
+        cur = conn.cursor()
+        cur.execute(sql)
+        conn.commit()
 
-            sql = '''
-                UPDATE clv_patient
-                SET email = NULL
-                WHERE email = '0';
-                '''
-            cur = conn.cursor()
-            cur.execute(sql)
-            conn.commit()
+        sql = '''
+            UPDATE clv_patient
+            SET mobile = NULL
+            WHERE mobile = '0';
+            '''
+        cur = conn.cursor()
+        cur.execute(sql)
+        conn.commit()
+
+        sql = '''
+            UPDATE clv_patient
+            SET email = NULL
+            WHERE email = '0';
+            '''
+        cur = conn.cursor()
+        cur.execute(sql)
+        conn.commit()
 
         conn.close()
 
