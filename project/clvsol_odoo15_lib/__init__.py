@@ -9,6 +9,7 @@ from . import res_users
 from . import clv_phase
 from . import clv_global_tag
 from . import survey_survey
+from . import survey_question
 from . import clv_partner_entity_street_pattern
 from . import clv_partner_entity_contact_information_pattern
 from . import clv_patient_category
