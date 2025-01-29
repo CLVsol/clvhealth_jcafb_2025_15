@@ -32,11 +32,6 @@ def get_sqlite(server_url, db_name, username, password, initialize=False):
         )
         clv_patient_tag = pd.DataFrame(clv_patient_tag_objects)
 
-        # for i, row in clv_patient_tag.iterrows():
-
-        #     if row['description'] is False:
-        #         clv_patient_tag['description'].values[i] = None
-
         conn = sqlite3.connect('data/jcafb_2025.db')
 
         if initialize:
@@ -51,14 +46,14 @@ def get_sqlite(server_url, db_name, username, password, initialize=False):
 
             clv_patient_tag.to_sql('clv_patient_tag', conn, if_exists='append', index=False)
 
-            sql = '''
-                UPDATE clv_patient_tag
-                SET description = NULL
-                WHERE description = '0';
-                '''
-            cur = conn.cursor()
-            cur.execute(sql)
-            conn.commit()
+        sql = '''
+            UPDATE clv_patient_tag
+            SET description = NULL
+            WHERE description = '0';
+            '''
+        cur = conn.cursor()
+        cur.execute(sql)
+        conn.commit()
 
         conn.close()
 
