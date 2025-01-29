@@ -40,9 +40,6 @@ def get_sqlite(server_url, db_name, username, password, initialize=False):
             if row['street_number2'] is False:
                 clv_partner_entity_contact_information_pattern['street_number2'].values[i] = None
 
-            # if row['notes'] is False:
-            #     clv_partner_entity_contact_information_pattern['notes'].values[i] = None
-
         conn = sqlite3.connect('data/jcafb_2025.db')
 
         if initialize:
@@ -59,14 +56,14 @@ def get_sqlite(server_url, db_name, username, password, initialize=False):
             clv_partner_entity_contact_information_pattern.to_sql(
                 'clv_partner_entity_contact_information_pattern', conn, if_exists='append', index=False)
 
-            sql = '''
-                UPDATE clv_partner_entity_contact_information_pattern
-                SET notes = NULL
-                WHERE notes = '0';
-                '''
-            cur = conn.cursor()
-            cur.execute(sql)
-            conn.commit()
+        sql = '''
+            UPDATE clv_partner_entity_contact_information_pattern
+            SET notes = NULL
+            WHERE notes = '0';
+            '''
+        cur = conn.cursor()
+        cur.execute(sql)
+        conn.commit()
 
         conn.close()
 
