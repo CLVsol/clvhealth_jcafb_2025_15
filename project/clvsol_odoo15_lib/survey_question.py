@@ -26,11 +26,12 @@ def get_sqlite(server_url, db_name, username, password, initialize=False):
     survey_question_fields = ['id', 'title', 'code', 'description', 'parameter', 'survey_id', 'sequence',
                               'is_page', 'page_id', 'question_type',
                               'matrix_subtype', 'column_nb', 'comments_allowed', 'comments_message', 'comment_count_as_answer',
-                              'validation_required', 'validation_length_min', 'validation_length_max',
+                              'validation_required', 'validation_email', 'validation_length_min', 'validation_length_max',
                               'validation_min_float_value', 'validation_max_float_value',
                               'validation_min_date', 'validation_max_date',
                               'validation_min_datetime', 'validation_max_datetime',
-                              'validation_error_msg', 'constr_mandatory', 'constr_error_msg']
+                              'validation_error_msg', 'constr_mandatory', 'constr_error_msg',
+                              'is_conditional', 'triggering_question_id', 'triggering_answer_id']
 
     common = client.ServerProxy('%s/xmlrpc/2/common' % server_url)
     user_id = common.authenticate(db_name, username, password, {})
@@ -48,6 +49,8 @@ def get_sqlite(server_url, db_name, username, password, initialize=False):
         survey_question = pd.DataFrame(survey_question_objects)
         survey_question.insert(survey_question.columns.get_loc("survey_id") + 1, 'survey', None)
         survey_question.insert(survey_question.columns.get_loc("page_id") + 1, 'page', None)
+        survey_question.insert(survey_question.columns.get_loc("triggering_question_id") + 1, 'triggering_question', None)
+        survey_question.insert(survey_question.columns.get_loc("triggering_answer_id") + 1, 'triggering_answer', None)
 
         for i, row in survey_question.iterrows():
 
@@ -56,6 +59,24 @@ def get_sqlite(server_url, db_name, username, password, initialize=False):
                 survey_question['survey'].values[i] = row['survey_id'][1]
             else:
                 survey_question['survey_id'].values[i] = None
+
+            if row['page_id']:
+                survey_question['page_id'].values[i] = row['page_id'][0]
+                survey_question['page'].values[i] = row['page_id'][1]
+            else:
+                survey_question['page_id'].values[i] = None
+
+            if row['triggering_question_id']:
+                survey_question['triggering_question_id'].values[i] = row['triggering_question_id'][0]
+                survey_question['triggering_question'].values[i] = row['triggering_question_id'][1]
+            else:
+                survey_question['triggering_question_id'].values[i] = None
+
+            if row['triggering_answer_id']:
+                survey_question['triggering_answer_id'].values[i] = row['triggering_answer_id'][0]
+                survey_question['triggering_answer'].values[i] = row['triggering_answer_id'][1]
+            else:
+                survey_question['triggering_answer_id'].values[i] = None
 
             if row['page_id']:
                 survey_question['page_id'].values[i] = row['page_id'][0]
@@ -84,6 +105,9 @@ def get_sqlite(server_url, db_name, username, password, initialize=False):
             if not row['validation_error_msg']:
                 survey_question['validation_error_msg'].values[i] = None
 
+            if not row['constr_error_msg']:
+                survey_question['constr_error_msg'].values[i] = None
+
         conn = sqlite3.connect('data/jcafb_2025.db')
 
         if initialize:
@@ -99,9 +123,63 @@ def get_sqlite(server_url, db_name, username, password, initialize=False):
             survey_question.to_sql('survey_question', conn, if_exists='append', index=False)
 
         sql = '''
-            UPDATE clv_patient
-            SET district = NULL
-            WHERE district = '0';
+            UPDATE survey_question
+            SET validation_email = NULL
+            WHERE validation_email = '0';
+            '''
+        cur = conn.cursor()
+        cur.execute(sql)
+        conn.commit()
+
+        sql = '''
+            UPDATE survey_question
+            SET validation_min_date = NULL
+            WHERE validation_min_date = '0';
+            '''
+        cur = conn.cursor()
+        cur.execute(sql)
+        conn.commit()
+
+        sql = '''
+            UPDATE survey_question
+            SET validation_max_date = NULL
+            WHERE validation_max_date = '0';
+            '''
+        cur = conn.cursor()
+        cur.execute(sql)
+        conn.commit()
+
+        sql = '''
+            UPDATE survey_question
+            SET validation_min_datetime = NULL
+            WHERE validation_min_datetime = '0';
+            '''
+        cur = conn.cursor()
+        cur.execute(sql)
+        conn.commit()
+
+        sql = '''
+            UPDATE survey_question
+            SET validation_max_datetime = NULL
+            WHERE validation_max_datetime = '0';
+            '''
+        cur = conn.cursor()
+        cur.execute(sql)
+        conn.commit()
+
+        sql = '''
+            UPDATE survey_question
+            SET triggering_question_id = NULL
+            WHERE triggering_question_id = 0;
+            '''
+        cur = conn.cursor()
+        cur.execute(sql)
+        conn.commit()
+
+        sql = '''
+            UPDATE survey_question
+            SET triggering_answer_id = NULL
+            WHERE triggering_answer_id = 0;
             '''
         cur = conn.cursor()
         cur.execute(sql)
