@@ -1,4 +1,12 @@
 BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS "clv_global_tag" (
+"id" INTEGER,
+  "name" TEXT,
+  "description" TEXT,
+  "color" INTEGER,
+  "notes" INTEGER,
+  "active" INTEGER
+);
 CREATE TABLE IF NOT EXISTS "clv_partner_entity_contact_information_pattern" (
 	"id"	INTEGER,
 	"name"	TEXT,
@@ -129,6 +137,63 @@ CREATE TABLE IF NOT EXISTS "res_users" (
 	"password"	TEXT,
 	"active"	INTEGER,
 	"image_1920"	TEXT,
+	PRIMARY KEY("id")
+);
+CREATE TABLE IF NOT EXISTS "survey_question" (
+	"id"	INTEGER,
+	"title"	TEXT,
+	"code"	TEXT,
+	"description"	TEXT,
+	"parameter"	TEXT,
+	"survey_id"	INTEGER,
+	"survey"	TEXT,
+	"sequence"	INTEGER,
+	"is_page"	INTEGER,
+	"page_id"	INTEGER,
+	"page"	TEXT,
+	"question_type"	TEXT,
+	"matrix_subtype"	TEXT,
+	"column_nb"	TEXT,
+	"comments_allowed"	INTEGER,
+	"comments_message"	TEXT,
+	"comment_count_as_answer"	INTEGER,
+	"validation_required"	INTEGER,
+	"validation_email"	TEXT,
+	"validation_length_min"	INTEGER,
+	"validation_length_max"	INTEGER,
+	"validation_min_float_value"	REAL,
+	"validation_max_float_value"	REAL,
+	"validation_min_date"	TEXT,
+	"validation_max_date"	TEXT,
+	"validation_min_datetime"	TEXT,
+	"validation_max_datetime"	TEXT,
+	"validation_error_msg"	TEXT,
+	"constr_mandatory"	INTEGER,
+	"constr_error_msg"	TEXT,
+	"is_conditional"	INTEGER,
+	"triggering_question_id"	INTEGER,
+	"triggering_question"	TEXT,
+	"triggering_answer_id"	INTEGER,
+	"triggering_answer"	TEXT
+);
+CREATE TABLE IF NOT EXISTS "survey_survey" (
+	"id"	INTEGER,
+	"title"	TEXT,
+	"code"	TEXT,
+	"description"	TEXT,
+	"access_token"	TEXT,
+	"phase_id"	INTEGER,
+	"phase"	TEXT,
+	"users_login_required"	INTEGER,
+	"is_attempts_limited"	INTEGER,
+	"attempts_limit"	INTEGER,
+	"users_can_go_back"	INTEGER,
+	"questions_layout"	TEXT,
+	"color"	INTEGER,
+	"questions_selection"	TEXT,
+	"access_mode"	TEXT,
+	"session_code"	INTEGER,
+	"active"	INTEGER,
 	PRIMARY KEY("id")
 );
 CREATE UNIQUE INDEX "idx_clv_patient_code" ON "clv_patient" (
