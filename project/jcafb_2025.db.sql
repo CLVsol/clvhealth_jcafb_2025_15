@@ -176,6 +176,18 @@ CREATE TABLE IF NOT EXISTS "survey_question" (
 	"triggering_answer_id"	INTEGER,
 	"triggering_answer"	TEXT
 );
+CREATE TABLE IF NOT EXISTS "survey_question_answer" (
+"id" INTEGER,
+  "question_id" INTEGER,
+  "question" TEXT,
+  "matrix_question_id" INTEGER,
+  "matrix_question" TEXT,
+  "sequence" INTEGER,
+  "value" TEXT,
+  "code" TEXT,
+  "is_correct" INTEGER,
+  "answer_score" REAL
+);
 CREATE TABLE IF NOT EXISTS "survey_survey" (
 	"id"	INTEGER,
 	"title"	TEXT,
