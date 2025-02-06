@@ -185,6 +185,8 @@ def get_sqlite(server_url, db_name, username, password, initialize=False):
         cur.execute(sql)
         conn.commit()
 
+        conn.close()
+
     _logger.info(u'%s %s %s %s', '-->', 'Execution time:', secondsToStr(time() - start), '\n')
 
     return survey_question
