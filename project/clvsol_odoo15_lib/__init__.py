@@ -11,6 +11,7 @@ from . import clv_global_tag
 from . import survey_survey
 from . import survey_question
 from . import survey_question_answer
+from . import survey_user_input
 from . import clv_partner_entity_street_pattern
 from . import clv_partner_entity_contact_information_pattern
 from . import clv_patient_category
