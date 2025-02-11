@@ -208,6 +208,37 @@ CREATE TABLE IF NOT EXISTS "survey_survey" (
 	"active"	INTEGER,
 	PRIMARY KEY("id")
 );
+CREATE TABLE IF NOT EXISTS "survey_user_input" (
+	"id"	INTEGER,
+	"survey_id"	INTEGER,
+	"survey"	TEXT,
+	"start_datetime"	TEXT,
+	"end_datetime"	TEXT,
+	"deadline"	INTEGER,
+	"state"	TEXT,
+	"test_entry"	INTEGER,
+	"last_displayed_page_id"	INTEGER,
+	"access_token"	TEXT,
+	"invite_token"	INTEGER,
+	"partner_id"	INTEGER,
+	"partner"	TEXT,
+	"email"	TEXT,
+	"nickname"	TEXT,
+	"scoring_percentage"	REAL,
+	"scoring_total"	REAL,
+	"scoring_success"	INTEGER,
+	"is_session_answer"	INTEGER,
+	"ref_id"	TEXT,
+	"ref_model"	TEXT,
+	"ref_name"	TEXT,
+	"ref_code"	TEXT,
+	"state_2"	TEXT,
+	"notes"	TEXT,
+	"parameter_1"	TEXT,
+	"parameter_2"	TEXT,
+	"parameter_3"	TEXT,
+	"parameter_4"	TEXT
+);
 CREATE UNIQUE INDEX "idx_clv_patient_code" ON "clv_patient" (
 	"code"	ASC
 );
