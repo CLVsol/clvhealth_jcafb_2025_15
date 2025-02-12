@@ -239,6 +239,29 @@ CREATE TABLE IF NOT EXISTS "survey_user_input" (
 	"parameter_3"	TEXT,
 	"parameter_4"	TEXT
 );
+CREATE TABLE IF NOT EXISTS "survey_user_input_line" (
+	"id"	INTEGER,
+	"user_input_id"	INTEGER,
+	"user_input"	TEXT,
+	"survey_id"	INTEGER,
+	"survey"	TEXT,
+	"question_id"	INTEGER,
+	"question"	TEXT,
+	"question_sequence"	INTEGER,
+	"skipped"	INTEGER,
+	"answer_type"	TEXT,
+	"value_char_box"	TEXT,
+	"value_numerical_box"	REAL,
+	"value_date"	TEXT,
+	"value_datetime"	TEXT,
+	"value_text_box"	TEXT,
+	"suggested_answer_id"	INTEGER,
+	"suggested_answer"	TEXT,
+	"matrix_row_id"	INTEGER,
+	"matrix_row"	TEXT,
+	"answer_score"	REAL,
+	"answer_is_correct"	INTEGER
+);
 CREATE UNIQUE INDEX "idx_clv_patient_code" ON "clv_patient" (
 	"code"	ASC
 );
